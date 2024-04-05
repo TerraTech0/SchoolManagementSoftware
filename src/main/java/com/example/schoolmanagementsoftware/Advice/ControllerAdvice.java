@@ -6,8 +6,10 @@ import org.apache.coyote.Response;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
@@ -51,6 +53,18 @@ public class ControllerAdvice {
     public ResponseEntity HttpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException e){
         String message = e.getMessage();
         return ResponseEntity.status(400).body(message);
+    }
+
+    @ExceptionHandler(value = MethodArgumentNotValidException.class)
+    public ResponseEntity MethodArgumentNotValidException(MethodArgumentNotValidException e){
+        String message = e.getMessage();
+        return ResponseEntity.ok().body(message);
+    }
+
+    @ExceptionHandler(value = JpaSystemException.class)
+    public ResponseEntity JpaSystemException(JpaSystemException e){
+        String message = e.getMessage();
+        return ResponseEntity.ok().body(message);
     }
 
 

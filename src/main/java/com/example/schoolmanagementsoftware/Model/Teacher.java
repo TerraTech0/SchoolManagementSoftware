@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -20,7 +22,7 @@ public class Teacher {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotEmpty(message = "name can't be empty!")
+    @NotEmpty(message = "teacher name can't be empty!")
     @Column(columnDefinition = "varchar(30) not null")
     private String name;
 
@@ -41,4 +43,7 @@ public class Teacher {
     @OneToOne( cascade = CascadeType.ALL, mappedBy = "teacher" )//teacher >> address
     @PrimaryKeyJoinColumn
     private Address address;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "teacher")//teacher >> course
+    private Set<Course> courses;
 }
