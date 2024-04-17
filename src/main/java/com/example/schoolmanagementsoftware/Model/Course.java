@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Setter
 @Getter
 @NoArgsConstructor
@@ -29,4 +31,7 @@ public class Course {
     @JoinColumn(name = "teacher_id", referencedColumnName = "id")
     @JsonIgnore
     private Teacher teacher;
+
+    @ManyToMany
+    private List<Student> students;
 }
